@@ -1,9 +1,9 @@
 {
-  "name": "@any-cloud/cli",
+  "name": "@any-cloud/local",
   "version": "1.0.0",
-  "description": "manage one codebase accross different cloud providers with simple opinionated framework",
+  "description": "runs your project locally",
   "main": "src/index.js",
-  "repository": "https://github.com/any-cloud/core",
+  "repository": "https://github.com/any-cloud/local",
   "author": "Bryan Goldstein",
   "license": "MIT",
   "private": false,
