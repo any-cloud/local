@@ -2,7 +2,7 @@
   "name": "@any-cloud/local",
   "version": "1.0.0",
   "description": "runs your project locally",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "repository": "https://github.com/any-cloud/local",
   "author": "Bryan Goldstein",
   "license": "MIT",
@@ -10,7 +10,9 @@
   "scripts": {
     "build": "babel src/ --out-dir lib/"
   },
-  "dependencies": { },
+  "dependencies": {
+    "workerpool": "^4.0.0"
+  },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",

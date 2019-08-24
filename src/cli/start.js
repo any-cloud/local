@@ -1,14 +1,14 @@
-import path from "path"
+import path from "path";
 const { http } = require(process.cwd());
 
 export default {
-  command: 'http',
+  command: "start",
   aliases: [],
-  desc: 'start the http service with currently selected plugin',
-  builder: (yargs) => { yargs.option('port');},
-  handler : (argv) => {
+  desc: "start a local runtime of any-cloud",
+  builder: yargs => {},
+  handler: argv => {
     const port = argv.port || process.env.PORT || 4000;
     const server = http();
     server.listen(port, () => console.log(`🚀 Server ready on port ${port}!`));
   }
-}
+};
