@@ -1,9 +1,14 @@
-import { pool } from "workerpool";
+import Queue from "bull";
+import path from "path";
 
-const { exec } = pool();
+let onlyQueue;
 
-export const push = exec;
-
-export const register = (fn) => {
-  // TODO: enforce registration
+export const init = () => {
+    onlyQueue = new Queue("only");
+    onlyQueue.process(path.join(__dirname, "worker.js"));
+    return onlyQueue;
 }
+
+export const push = (jobName, args) => {
+  onlyQueue.add({jobName, ...args});
+};

@@ -12,8 +12,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.5.5",
-    "node-cron": "^2.0.3",
-    "workerpool": "^4.0.0"
+    "bull": "^3.10.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",

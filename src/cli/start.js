@@ -1,6 +1,4 @@
-import path from "path";
-import * as cron from "node-cron";
-import { queue } from "@any-cloud/core";
+import { init } from "../include/queue";
 const {
   http: appHttp,
   cron: appCron,
@@ -13,19 +11,16 @@ export default {
   desc: "start a local runtime of any-cloud",
   builder: yargs => {},
   handler: argv => {
-    // register worker jobs
-    if (appWorkers) {
-      Object.values(appWorkers).forEach(worker => {
-        queue.register(worker);
-      });
-    } else {
-      console.log("no workers found");
-    }
+    const onlyQueue = init();
 
     // start cron jobs
     if (appCron) {
-      Object.values(appCron).forEach(cronJob => {
-        cron.schedule(...cronJob);
+      Object.keys(appCron).forEach(cronJobKey => {
+        const cronJob = appCron[cronJobKey];
+        onlyQueue.add(
+          { jobName: cronJobKey },
+          { repeat: { cron: cronJob[0] } }
+        );
       });
     } else {
       console.log("no cron jobs found");
