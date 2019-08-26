@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.5.5",
-    "bull": "^3.10.0"
+    "bull": "^3.10.0",
+    "ioredis": "^4.14.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
