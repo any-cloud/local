@@ -1,4 +1,5 @@
-export const state = {};
+import Redis from "ioredis";
+const redis = new Redis();
 
 const ENCAPSULATION_CHECK = "qpj32r4wefeklnfaroiefeh";
 
@@ -23,21 +24,42 @@ export const key = (...parts) => {
 };
 
 export const set = (key, value) => {
-  state[unwrapKey(key)] = value;
+  return redis.set(unwrapKey(key), JSON.stringify(value));
 };
 
-export const get = key => state[unwrapKey(key)];
+export const get = key => redis.get(unwrapKey(key)).then(JSON.parse);
 
-export const getAll = partialKey =>
-  Object.keys(state)
-    .filter(key => key.indexOf(unwrapKey(partialKey)) === 0 && state[key] !== null)
-    .map(key => state[key]);
+export const getAll = partialKey => {
+  var stream = redis.scanStream({ match: `${unwrapKey(partialKey)}*` });
+  return new Promise((resolve, reject) => {
+    const result = [];
 
-export const remove = key => state[key] = null;
+    stream.on("data", resultKeys => {
+      for (var i = 0; i < resultKeys.length; i++) {
+        result.push(get(key(resultKeys[i])));
+      }
+    });
+    stream.on("end", () => resolve(Promise.all(result)));
+    stream.on("error", error => reject(error));
+  });
+};
+
+export const remove = key => redis.del(unwrapKey(key));
 
 export const reset = ({ force }) => {
   if (force) {
-    Object.keys(state).forEach(key => remove(key));
+    var stream = redis.scanStream({ match: "*" });
+    return new Promise((resolve, reject) => {
+      const result = [];
+
+      stream.on("data", resultKeys => {
+        for (var i = 0; i < resultKeys.length; i++) {
+          result.push(redis.del(resultKeys[i]));
+        }
+      });
+      stream.on("end", () => resolve(Promise.all(result)));
+      stream.on("error", error => reject(error));
+    });
   } else {
     console.warn("refusing to reset database, force was not set");
   }
