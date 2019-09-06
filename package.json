@@ -1,6 +1,6 @@
 {
   "name": "@any-cloud/local",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "runs your project locally",
   "main": "lib/index.js",
   "repository": "https://github.com/any-cloud/local",
