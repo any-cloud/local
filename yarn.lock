@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@any-cloud/core@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@any-cloud/core/-/core-0.0.1.tgz#1030c935e57cb9b85e8534fc4d4ac4a83f35053a"
+  integrity sha512-Jjk9ZXIvYWMwOzUNiLkXwbx+pRir0m9vcwJLmy4wZz/CgEXdng2sXUjiOVECw2vkHpPNYfyddhxU8V75ukpPJw==
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+
 "@babel/cli@^7.5.5":
   version "7.5.5"
   resolved "https://registry.yarnpkg.com/@babel/cli/-/cli-7.5.5.tgz#bdb6d9169e93e241a08f5f7b0265195bf38ef5ec"
