@@ -23,6 +23,6 @@
     "prettier": "^1.18.2"
   },
   "peerDependencies": {
-    "@any-cloud/core": "^0.0.1"
+    "@any-cloud/core": "*"
   }
 }
