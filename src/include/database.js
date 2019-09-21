@@ -4,8 +4,10 @@ const redis = new Redis();
 
 export const keySep = ":";
 
-export const set = (key, value) => {
-  return redis.set(common.unwrapKey(key), JSON.stringify(value));
+export const set = async (key, value) => {
+  return (
+    (await redis.set(common.unwrapKey(key), JSON.stringify(value))) === "OK"
+  );
 };
 
 export const get = async (aKey, opts = {}) => {
@@ -44,7 +46,7 @@ export const getAllKeys = async partialKey => {
   });
 };
 
-export const getAll = partialKey => {
+export const getAll = async partialKey => {
   var stream = redis.scanStream({ match: `${common.unwrapKey(partialKey)}*` });
   return new Promise((resolve, reject) => {
     const result = [];
@@ -59,7 +61,9 @@ export const getAll = partialKey => {
   });
 };
 
-export const remove = key => redis.del(common.unwrapKey(key));
+export const remove = async key => {
+  return (await redis.del(common.unwrapKey(key))) > 0;
+};
 
 export const reset = async ({ force }) => {
   if (force) {
