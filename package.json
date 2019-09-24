@@ -1,6 +1,6 @@
 {
   "name": "@any-cloud/local",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "runs your project locally",
   "main": "lib/index.js",
   "repository": "https://github.com/any-cloud/local",
@@ -9,7 +9,8 @@
   "private": false,
   "scripts": {
     "build": "babel src/ --out-dir lib/",
-    "watch": "yarn build --watch"
+    "watch": "yarn build --watch",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "@any-cloud/core": "^0.0.10",
