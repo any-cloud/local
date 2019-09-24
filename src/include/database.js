@@ -1,6 +1,6 @@
 import { database as common } from "@any-cloud/core";
 import Redis from "ioredis";
-const redis = new Redis();
+const redis = new Redis(process.env.REDIS_URL);
 
 export const keySep = ":";
 
